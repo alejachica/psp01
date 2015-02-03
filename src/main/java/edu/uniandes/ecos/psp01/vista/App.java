@@ -1,5 +1,6 @@
-package edu.uniandes.ecos.psp01;
+package edu.uniandes.ecos.psp01.vista;
 
+import edu.uniandes.ecos.psp01.controlador.Controlador;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,7 +10,6 @@ import org.eclipse.jetty.servlet.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
-import java.util.List;
 
 public class App extends HttpServlet {
 
@@ -27,14 +27,10 @@ public class App extends HttpServlet {
     private void showHome(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        ExploradorDirectorios exp = new ExploradorDirectorios();
-        List<File> archivos = exp.encontrarClases(new File("src/site/resources"));
+        Controlador controlador = new Controlador();
+        String salida = controlador.contarLOCs(new File("src/site/resources"));
         
-        AnalizadorClases analizadorClases = new AnalizadorClases();
-        analizadorClases.leerArchivos(archivos);
-        analizadorClases.imprimirResultado();
-        
-        resp.getWriter().print("Hello from Java! AMC" + exp.imprimirListaArchivos());
+        resp.getWriter().print("Entrega PSP01 - Alejandra Chica" + salida);
     }
 
     private void showDatabase(HttpServletRequest req, HttpServletResponse resp)
@@ -79,7 +75,7 @@ public class App extends HttpServlet {
     }
 
     public static void main(String[] args) throws Exception {
-        Server server = new Server(80);
+        Server server = new Server(8080);
 //    Server server = new Server(Integer.valueOf(System.getenv("PORT")));
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");

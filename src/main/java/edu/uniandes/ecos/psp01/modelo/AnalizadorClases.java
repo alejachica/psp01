@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniandes.ecos.psp01;
+package edu.uniandes.ecos.psp01.modelo;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,15 +19,10 @@ import java.util.logging.Logger;
  * @author Aleja Chica
  */
 public class AnalizadorClases {
+    
+    private int conteoTotal;
 
-    private List<String> resultados;
-
-    public AnalizadorClases() {
-
-        resultados = new ArrayList<String>();
-    }
-
-    public void leerArchivos(List<File> archivosJava) {
+    public String leerArchivos(List<File> archivosJava) {
 
         String resultado = "";
         String strLinea;
@@ -62,8 +56,9 @@ public class AnalizadorClases {
                     }
                 }
 
-                resultado = "Clase: " + archivo.getName() + " Numero de lineas: " + conteoLineas + " Numero de metodos: " + conteoMetodos;
-                resultados.add(resultado);
+                conteoTotal += conteoLineas;
+                
+                resultado = resultado + " Clase: " + archivo.getName() + ", Numero de lineas: " + conteoLineas + ", Numero de metodos: " + conteoMetodos + "\n";
 
                 br.close();
             }
@@ -73,6 +68,7 @@ public class AnalizadorClases {
             Logger.getLogger(AnalizadorClases.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        return resultado;
     }
 
     private boolean lineaEsComentario(String linea) {
@@ -82,14 +78,12 @@ public class AnalizadorClases {
 
     private boolean lineaEsMetodo(String linea) {
 
-        return (linea.trim().startsWith("public") || ((linea.trim().startsWith("protected")) || linea.trim().startsWith("private"))) && ((linea.trim().endsWith("){") ) || (linea.trim().endsWith(")")));
+        return (linea.trim().startsWith("public") || ((linea.trim().startsWith("protected")) || linea.trim().startsWith("private"))) && ((linea.trim().endsWith("){")) || (linea.trim().endsWith(")")));
+    }
+    
+    public int getConteoTotal() {
+        
+        return conteoTotal;
     }
 
-    public void imprimirResultado() {
-
-        for (String resultado : resultados) {
-
-            System.out.println(resultado);
-        }
-    }
 }
