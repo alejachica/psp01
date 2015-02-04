@@ -15,13 +15,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Clase encargada del conteo de lineas y metodos de una clase java.
  * @author Aleja Chica
  */
 public class AnalizadorClases {
     
+    /**
+     * Guarda el total de lineas de un programa
+     */
     private int conteoTotal;
 
+    /**
+     * Metodo que permite contar lineas validar en una clase java, y contar metodos.
+     * @param archivosJava Nombre del archivo a leer.
+     * @return String con el conteo de lineas y metodos de la clase.
+     */
     public String leerArchivos(List<File> archivosJava) {
 
         String resultado = "";
@@ -71,16 +79,30 @@ public class AnalizadorClases {
         return resultado;
     }
 
+    /**
+     * Metodo que determina si una linea es un comentario.
+     * @param linea Linea a leer
+     * @return true si la linea es comentario, falso en caso contrario.
+     */
     private boolean lineaEsComentario(String linea) {
 
         return linea.trim().startsWith("/**") || linea.trim().startsWith("/*") || linea.trim().startsWith("*") || linea.trim().startsWith("//");
     }
 
+    /**
+     * Metodo que determina si la linea a leer es un metodo java.
+     * @param linea Linea a leer.
+     * @return true si la linea es un metodo, falso en caso contrario.
+     */
     private boolean lineaEsMetodo(String linea) {
 
         return (linea.trim().startsWith("public") || ((linea.trim().startsWith("protected")) || linea.trim().startsWith("private"))) && ((linea.trim().endsWith("){")) || (linea.trim().endsWith(")")));
     }
     
+    /**
+     * Metodo que devuelve el conteo total de lineas de un programa java.
+     * @return el total de lineas de codigo de un programa java.
+     */
     public int getConteoTotal() {
         
         return conteoTotal;

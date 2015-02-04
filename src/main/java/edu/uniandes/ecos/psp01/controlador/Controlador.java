@@ -9,11 +9,16 @@ import edu.uniandes.ecos.psp01.modelo.ExploradorDirectorios;
 import java.io.File;
 
 /**
- *
+ *Clase que sirve de controlador en el patron MVC 
  * @author Aleja Chica
  */
 public class Controlador {
     
+    /**
+     * Metodo que invoca el explorador de directorios que busca archivos java.
+     * @param raiz Directorio raiz donde se ara la busqueda.
+     * @return String con la respuesta del conteo.
+     */
     public String contarLOCs(File raiz){
     
         ExploradorDirectorios exp = new ExploradorDirectorios();

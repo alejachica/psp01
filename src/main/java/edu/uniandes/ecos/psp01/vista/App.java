@@ -11,6 +11,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
 
+/**
+ * Clase que muestra el resultado del conteo de LOCs en un servidor web.
+ */
 public class App extends HttpServlet {
 
     @Override
@@ -29,7 +32,7 @@ public class App extends HttpServlet {
 
         Controlador controlador = new Controlador();
         String salida = controlador.contarLOCs(new File("src/site/resources"));
-        
+
         resp.getWriter().print("Entrega PSP01 - Alejandra Chica" + salida);
     }
 
@@ -75,8 +78,9 @@ public class App extends HttpServlet {
     }
 
     public static void main(String[] args) throws Exception {
-        Server server = new Server(8080);
-//    Server server = new Server(Integer.valueOf(System.getenv("PORT")));
+
+//        Server server = new Server(8080);
+        Server server = new Server(Integer.valueOf(System.getenv("PORT")));
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         server.setHandler(context);
