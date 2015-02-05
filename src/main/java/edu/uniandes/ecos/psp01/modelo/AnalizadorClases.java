@@ -96,7 +96,7 @@ public class AnalizadorClases {
      */
     private boolean lineaEsMetodo(String linea) {
 
-        return (linea.trim().startsWith("public") || ((linea.trim().startsWith("protected")) || linea.trim().startsWith("private"))) && ((linea.trim().endsWith("){")) || (linea.trim().endsWith(")")));
+        return (linea.trim().startsWith("public") || ((linea.trim().startsWith("protected")) || linea.trim().startsWith("private"))) && ((linea.trim().endsWith("{")) || (linea.trim().endsWith(")"))) && !(linea.trim().contains("class"));
     }
     
     /**
